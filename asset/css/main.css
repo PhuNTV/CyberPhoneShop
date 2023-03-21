@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  color: #0a0101;
+}
+
+#myNavbar {
+  background-color: #dc3545;
+}
+#myNavbar .navbar-brand {
+  font-size: 18px;
+  font-weight: 400;
+  color: #0a0101;
+}
+#myNavbar #navbarNav .nav-item .nav-link {
+  font-size: 18px;
+  font-weight: 400;
+  color: #0a0101;
+}
+
+#myCarousel {
+  background-color: blue;
+  width: 50%;
+  margin: auto;
+}
+#myCarousel .carousel-item img {
+  width: 100%;
+}/*# sourceMappingURL=main.css.map */

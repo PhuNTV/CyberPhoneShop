@@ -1,0 +1,13 @@
+#myNavbar{
+    background-color: #dc3545;
+    .navbar-brand{
+        @include styleText($font-size-1,$font-weigt-1,$color-black-0);
+    }
+    #navbarNav{
+        .nav-item{
+            .nav-link{
+                @include styleText($font-size-1,$font-weigt-1,$color-black-0);
+            }
+        }
+    }
+}
