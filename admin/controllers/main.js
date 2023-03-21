@@ -7,19 +7,18 @@ function showTable(arrayData) {
     arrayData.map(function(product, index) {
         content += `
             <tr>
-                <td></td>
-                <td>${product.name}</td>
-                <td>${product.price.toLocaleString()}</td>
-                <td>${product.screen}</td>
-                <td>${product.backCamera}</td>
-                <td>${product.frontCamera}</td>
-                <td>${product.desc}</td>
-                <td>${product.hinhAnh}</td>
-                <td>${product.type}</td>
-                <td>
+                <td >${product.name}</td>
+                <td >${product.price.toLocaleString()}</td>
+                <td >${product.screen}</td>
+                <td >${product.backCamera}</td>
+                <td >${product.frontCamera}</td>
+                <td ><img src="${product.img}" style="width:100%" ></td>
+                <td >${product.desc}</td>
+                <td >${product.type}</td>
+                <td >
                     <button onclick="deleteProduct('${product.id}')" class="btn btn-danger" >Xóa</button>
-
-                    
+                    <br>
+                    <br>
                     <button  data-toggle="modal" data-target="#myModal"    onclick="showProductDetail('${product.id}')"      class="btn btn-info" >Xem</button>
                 </td>
             </tr>
@@ -56,13 +55,17 @@ showProductList();
 
 function addProduct() {
     //lấy dữ liệu từ form
-    var tenSP = document.querySelector("#TenSP").value;
-    var gia = document.querySelector("#GiaSP").value
-    var hinhAnh = document.querySelector("#HinhSP").value
-    var moTa = document.querySelector("#MoTa").value;
+    var name = document.querySelector("#TenSP").value;
+    var price = document.querySelector("#GiaSP").value;
+    var screen = document.querySelector("#ManHinhSP").value;
+    var backCamera = document.querySelector("#BackCamSP").value;
+    var frontCamera = document.querySelector("#FrontCamSP").value;
+    var img = document.querySelector("#HinhSP").value
+    var desc = document.querySelector("#MoTa").value
+    var type = document.querySelector("#LoaiSP").value;
 
     //Tạo đối tượng sản phẩm
-    var product = new Product(tenSP, gia, hinhAnh, moTa);
+    var product = new Product(name, price, screen, backCamera, frontCamera, img, desc, type);
     // console.log(product)
 
     //truyền xuống BE
@@ -115,10 +118,15 @@ function showProductDetail(id) {
             console.log(result.data);
 
             //hiển thị lên form
-            document.querySelector("#TenSP").value = result.data.tenSP;
-            document.querySelector("#GiaSP").value = result.data.gia;
-            document.querySelector("#HinhSP").value = result.data.hinhAnh;
-            document.querySelector("#MoTa").value = result.data.moTa;
+
+            document.querySelector("#TenSP").value = result.data.name;
+            document.querySelector("#GiaSP").value = result.data.price;
+            document.querySelector("#ManHinhSP").value = result.data.screen;
+            document.querySelector("#BackCamSP").value = result.data.backCamera;
+            document.querySelector("#FrontCamSP").value = result.data.frontCamera;
+            document.querySelector("#HinhSP").value = result.data.img;
+            document.querySelector("#MoTa").value = result.data.desc;
+            document.querySelector("#LoaiSP").value = result.data.type;
 
             //thêm button update cho form
             document.querySelector("#myModal .modal-footer").innerHTML = `
@@ -137,13 +145,18 @@ function showProductDetail(id) {
 function updateProduct(id) {
     console.log(id);
     //Lấy dữ liệu từ form
-    var tenSP = document.querySelector("#TenSP").value;
-    var gia = document.querySelector("#GiaSP").value
-    var hinhAnh = document.querySelector("#HinhSP").value
-    var moTa = document.querySelector("#MoTa").value;
+    var name = document.querySelector("#TenSP").value;
+    var price = document.querySelector("#GiaSP").value;
+    var screen = document.querySelector("#ManHinhSP").value;
+    var backCamera = document.querySelector("#BackCamSP").value;
+    var frontCamera = document.querySelector("#FrontCamSP").value;
+    var img = document.querySelector("#HinhSP").value
+    var desc = document.querySelector("#MoTa").value
+    var type = document.querySelector("#LoaiSP").value;
 
     //tạo đối tương productUpdate
-    var productUpdate = new Product(tenSP, gia, hinhAnh, moTa);
+
+    var productUpdate = new Product(name, price, screen, backCamera, frontCamera, img, desc, type);
     console.log(productUpdate);
 
     //Tương tác với BE để update

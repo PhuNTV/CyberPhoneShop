@@ -12,30 +12,36 @@
 
 <body>
     <div class="container">
-        <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation"></button>
-            <div class="collapse navbar-collapse" id="collapsibleNavId">
-                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownId">
-                            <a class="dropdown-item" href="#">Action 1</a>
-                            <a class="dropdown-item" href="#">Action 2</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <header>
+            <nav class="phoneNav container navbar navbar-expand-lg">
+                <a class="navbar-brand" href="#">CyberPhone</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#phoneNavbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon">
+                        <i class="fa fa-bars"></i>
+                    </span>
+                </button>
 
-        <header class="display-4 my-4">
-            <h1>Quản lý sản phẩm</h1>
+                <div class="collapse navbar-collapse" id="phoneNavbar">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Danh sách sản phẩm</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">User</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
         </header>
         <!-- Phan tab menu -->
         <ul class="nav nav-tabs" role="tablist">
@@ -74,14 +80,17 @@
                     <!-- BEGIN TABLE SẢN PHẨM -->
                     <table class="table table-bordered">
                         <thead>
-                            <th>Tên Sản Phẩm</th>
-                            <th>Giá</th>
-                            <th>Màn Hình</th>
-                            <th>Camera Sau</th>
-                            <th>Camera Trước</th>
-                            <th>Hình Ảnh</th>
-                            <th>Mô Tả</th>
-                            <th>Loại</th>
+                            <tr>
+                                <th>Tên Sản Phẩm</th>
+                                <th>Giá</th>
+                                <th>Màn Hình</th>
+                                <th>Camera Sau</th>
+                                <th>Camera Trước</th>
+                                <th>Hình Ảnh</th>
+                                <th id="MoTaTh">Mô Tả</th>
+                                <th>Loại</th>
+                                <th></th>
+                            </tr>
                         </thead>
                         <tbody id="tblDanhSachSP"></tbody>
                     </table>
@@ -150,12 +159,19 @@
         </div>
     </div>
     <div id="container"></div>
-    <style>
+    <!-- <style>
         #container {
             min-width: 310px;
             max-width: 800px;
             height: 400px;
             margin: 0 auto;
+        }
+    </style> -->
+    <style>
+        .table thead th,
+        .table tbody td {
+            vertical-align: middle;
+            text-align: center;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
