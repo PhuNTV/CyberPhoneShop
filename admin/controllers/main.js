@@ -1,5 +1,5 @@
 const productSer = new ProductServive();
-
+const validation = new Validation();
 
 function showTable(arrayData) {
     var content = "";
@@ -16,10 +16,10 @@ function showTable(arrayData) {
                 <td >${product.desc}</td>
                 <td >${product.type}</td>
                 <td >
-                    <button onclick="deleteProduct('${product.id}')" class="btn btn-danger" >Xóa</button>
+                    <button onclick="deleteProduct('${product.id}')" class="btn btn-danger" style=" width: 60px; padding: 10px 10px;">Xóa</button>
                     <br>
                     <br>
-                    <button  data-toggle="modal" data-target="#myModal"    onclick="showProductDetail('${product.id}')"      class="btn btn-info" >Xem</button>
+                    <button  data-toggle="modal" data-target="#myModal"    onclick="showProductDetail('${product.id}')"      class="btn btn-info"  style=" width: 60px; padding: 10px 10px;">Xem</button>
                 </td>
             </tr>
         `
@@ -28,7 +28,6 @@ function showTable(arrayData) {
     document.querySelector("#tblDanhSachSP").innerHTML = content;
 
 }
-
 
 function showProductList() {
     //hiển thị danh sach khi thành công. Ngược lại báo lỗi khi thất bại
@@ -56,7 +55,7 @@ showProductList();
 function addProduct() {
     //lấy dữ liệu từ form
     var name = document.querySelector("#TenSP").value;
-    var price = document.querySelector("#GiaSP").value;
+    var price = Number(document.querySelector("#GiaSP").value);
     var screen = document.querySelector("#ManHinhSP").value;
     var backCamera = document.querySelector("#BackCamSP").value;
     var frontCamera = document.querySelector("#FrontCamSP").value;
@@ -64,21 +63,40 @@ function addProduct() {
     var desc = document.querySelector("#MoTa").value
     var type = document.querySelector("#LoaiSP").value;
 
+
+
     //Tạo đối tượng sản phẩm
-    var product = new Product(name, price, screen, backCamera, frontCamera, img, desc, type);
+
     // console.log(product)
 
     //truyền xuống BE
-    productSer.addProductSer(product)
-        .then(function(result) {
-            console.log(result);
-            //hiển thị lại danh sách
-            showProductList();
 
-        })
-        .catch(function(error) {
-            console.log(error)
-        })
+    var isValid = true;
+
+    isValid &= validation.checkEmpty(name, "tbName", "Tên sản phẩm không để trống!");
+    isValid &= validation.checkEmpty(price, "tbGia", "Giá không để trống!") && validation.checkPrice(price, "tbGia", "Hiện tại samsung và iphone mỗi mặt hàng đều lớn 1 triệu và nhỏ hơn 50 triệu!");
+    isValid &= validation.checkEmpty(screen, "tbManHinh", "Size màn hình không để trống!");
+    isValid &= validation.checkEmpty(backCamera, "tbBackCam", "Thông tin không được để trống!");
+    isValid &= validation.checkEmpty(frontCamera, "tbFrontCam", "Thông tin không được để trống!");
+    isValid &= validation.checkEmpty(img, "tbHinh", "Thông tin không được để trống!");
+    isValid &= validation.checkEmpty(desc, "tbMoTa", "Thông tin không được để trống!");
+    isValid &= validation.checkSelect("LoaiSP", "tbLoai", "Thông tin chưa hợp lệ!");
+
+    if (isValid) {
+        var product = new Product(name, Number(price), screen, backCamera, frontCamera, img, desc, type);
+        productSer.addProductSer(product)
+            .then(function(result) {
+                console.log(result);
+                //hiển thị lại danh sách
+                showProductList();
+
+            })
+            .catch(function(error) {
+                console.log(error)
+            })
+
+
+    }
 
     //hien thị danh sach sản phẩm
 }
@@ -90,7 +108,6 @@ document.querySelector("#btnThemSP").onclick = function() {
         <button class="btn btn-success" onclick="addProduct()" >Add Product</button>
     `;
 
-    // document.querySelector("#TenSP").value = "";
     document.querySelector("#formProduct").reset();
 
 }
@@ -110,7 +127,58 @@ function deleteProduct(id) {
         })
 }
 
+function updateProduct(id) {
+
+    console.log(id);
+    //Lấy dữ liệu từ form
+    var name = document.querySelector("#TenSP").value;
+    var price = Number(document.querySelector("#GiaSP").value);
+    var screen = document.querySelector("#ManHinhSP").value;
+    var backCamera = document.querySelector("#BackCamSP").value;
+    var frontCamera = document.querySelector("#FrontCamSP").value;
+    var img = document.querySelector("#HinhSP").value
+    var desc = document.querySelector("#MoTa").value
+    var type = document.querySelector("#LoaiSP").value;
+
+    //tạo đối tương productUpdate
+
+    var isValid = true;
+
+    isValid &= validation.checkEmpty(name, "tbName", "Tên sản phẩm không để trống!");
+    isValid &= validation.checkEmpty(price, "tbGia", "Giá không để trống!") && validation.checkPrice(price, "tbGia", "Hiện tại samsung và iphone mỗi mặt hàng đều lớn 1 triệu và nhỏ hơn 50 triệu!");
+    isValid &= validation.checkEmpty(screen, "tbManHinh", "Size màn hình không để trống!");
+    isValid &= validation.checkEmpty(backCamera, "tbBackCam", "Thông tin không được để trống!");
+    isValid &= validation.checkEmpty(frontCamera, "tbFrontCam", "Thông tin không được để trống!");
+    isValid &= validation.checkEmpty(img, "tbHinh", "Thông tin không được để trống!");
+    isValid &= validation.checkEmpty(desc, "tbMoTa", "Thông tin không được để trống!");
+    isValid &= validation.checkSelect("LoaiSP", "tbLoai", "Thông tin chưa hợp lệ!");
+
+    //Tương tác với BE để update
+    if (isValid) {
+        var productUpdate = new Product(name, Number(price), screen, backCamera, frontCamera, img, desc, type);
+        console.log(productUpdate);
+        productSer.updateProductSer(productUpdate, id)
+            .then(function(result) {
+                console.log(result.data);
+
+                //Hiển thị lại table
+                showProductList();
+                alert("Cập nhật thành công");
+                document.querySelector("#myModal .close").click();
+                // document.querySelector("#formProduct").reset();
+
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
+
+    }
+
+}
+
 function showProductDetail(id) {
+
+
     console.log(id);
 
     productSer.getProductItem(id)
@@ -132,7 +200,6 @@ function showProductDetail(id) {
             document.querySelector("#myModal .modal-footer").innerHTML = `
             <button class="btn btn-success" onclick="updateProduct('${result.data.id}')" >Update Product</button>
             `
-
         })
         .catch(function(error) {
             console.log(error)
@@ -142,37 +209,81 @@ function showProductDetail(id) {
 }
 
 
-function updateProduct(id) {
-    console.log(id);
-    //Lấy dữ liệu từ form
-    var name = document.querySelector("#TenSP").value;
-    var price = document.querySelector("#GiaSP").value;
-    var screen = document.querySelector("#ManHinhSP").value;
-    var backCamera = document.querySelector("#BackCamSP").value;
-    var frontCamera = document.querySelector("#FrontCamSP").value;
-    var img = document.querySelector("#HinhSP").value
-    var desc = document.querySelector("#MoTa").value
-    var type = document.querySelector("#LoaiSP").value;
 
-    //tạo đối tương productUpdate
 
-    var productUpdate = new Product(name, price, screen, backCamera, frontCamera, img, desc, type);
-    console.log(productUpdate);
 
-    //Tương tác với BE để update
-    productSer.updateProductSer(productUpdate, id)
-        .then(function(result) {
-            console.log(result.data);
-            //Hiển thị lại table
-            showProductList();
+function searchProduct() {
+    //hiển thị danh sach khi thành công. Ngược lại báo lỗi khi thất bại
 
-            alert("Cập nhật thành công");
+    var axiosResult = productSer.getProductList();
 
-            document.querySelector("#myModal .close").click();
+    axiosResult.then(function(result) {
+            var products = result.data;
+
+            // Lấy input tìm kiếm
+            var searchInput = document.getElementById('searchName');
+
+            // Lắng nghe sự kiện onkeyup của input tìm kiếm
+            searchInput.onkeyup = function() {
+                // Lấy giá trị của input tìm kiếm
+                var searchValue = searchInput.value.toLowerCase();
+
+                // Lọc danh sách sản phẩm theo tên sản phẩm chứa từ khóa tìm kiếm
+                var filteredProducts = products.filter(function(product) {
+                    return product.name.toLowerCase().includes(searchValue);
+                });
+
+                // Hiển thị danh sách sản phẩm đã lọc
+                showTable(filteredProducts);
+            };
 
         })
         .catch(function(error) {
-            console.log(error);
-        })
+            //? Reject (thất bại)
+            console.log(error)
+        });
 
 }
+searchProduct();
+
+function sortUp() {
+    //hiển thị danh sach khi thành công. Ngược lại báo lỗi khi thất bại
+
+    var axiosResult = productSer.getProductList();
+
+    axiosResult.then(function(result) {
+            var products = result.data;
+            var sortSelect = document.getElementById("sapXep");
+
+            // Lắng nghe sự kiện click của button sắp xếp
+            sortSelect.onchange = function() {
+                // Lấy giá trị của option được chọn
+                let selectedValue = sortSelect.value;
+
+                // Nếu giá trị được chọn là 'price-asc'
+                if (selectedValue === "Tăng dần") {
+                    // Sắp xếp danh sách sản phẩm theo giá cả tăng dần
+                    products.sort(function(a, b) {
+                        return a.price - b.price;
+                    });
+
+                } else if (selectedValue === "Giảm dần") {
+                    // Sắp xếp danh sách sản phẩm theo giá cả tăng dần
+                    products.sort(function(a, b) {
+                        return b.price - a.price;
+                    });
+                }
+
+
+                // Hiển thị danh sách sản phẩm đã sắp xếp
+                showTable(products);
+            };
+
+        })
+        .catch(function(error) {
+            //? Reject (thất bại)
+            console.log(error)
+        });
+
+}
+sortUp();
