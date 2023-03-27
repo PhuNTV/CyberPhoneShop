@@ -7,15 +7,15 @@ function showTable(arrayData) {
     arrayData.map(function(product, index) {
         content += `
             <tr>
-                <td >${product.name}</td>
-                <td >${product.price.toLocaleString()}</td>
-                <td >${product.screen}</td>
-                <td >${product.backCamera}</td>
-                <td >${product.frontCamera}</td>
-                <td ><img src="${product.img}" style="width:100%" ></td>
-                <td >${product.desc}</td>
-                <td >${product.type}</td>
-                <td >
+                <td ">${product.name}</td>
+                <td ">${product.price.toLocaleString()}</td>
+                <td ">${product.screen}</td>
+                <td ">${product.backCamera}</td>
+                <td ">${product.frontCamera}</td>
+                <td "><img src="${product.img}" style="width:100%" ></td>
+                <td ">${product.desc}</td>
+                <td ">${product.type}</td>
+                <td ">
                     <button onclick="deleteProduct('${product.id}')" class="btn btn-danger" style=" width: 60px; padding: 10px 10px;">Xóa</button>
                     <br>
                     <br>
@@ -54,7 +54,7 @@ showProductList();
 
 function addProduct() {
     //lấy dữ liệu từ form
-    var name = document.querySelector("#TenSP").value;
+    var name = document.getElementById("TenSP").value;
     var price = Number(document.querySelector("#GiaSP").value);
     var screen = document.querySelector("#ManHinhSP").value;
     var backCamera = document.querySelector("#BackCamSP").value;
@@ -62,12 +62,6 @@ function addProduct() {
     var img = document.querySelector("#HinhSP").value
     var desc = document.querySelector("#MoTa").value
     var type = document.querySelector("#LoaiSP").value;
-
-
-
-    //Tạo đối tượng sản phẩm
-
-    // console.log(product)
 
     //truyền xuống BE
 
@@ -89,6 +83,7 @@ function addProduct() {
                 console.log(result);
                 //hiển thị lại danh sách
                 showProductList();
+                alert("Thêm thành công");
 
             })
             .catch(function(error) {
@@ -105,7 +100,7 @@ function addProduct() {
 document.querySelector("#btnThemSP").onclick = function() {
     //thêm button cho form
     document.querySelector("#myModal .modal-footer").innerHTML = `
-        <button class="btn btn-success" onclick="addProduct()" >Add Product</button>
+        <button class="btn btn-success" onclick="addProduct()" >Thêm sản phẩm</button>
     `;
 
     document.querySelector("#formProduct").reset();
@@ -118,7 +113,6 @@ function deleteProduct(id) {
     productSer.deleteProductSer(id)
         .then(function(result) {
             console.log(result);
-
             //hiển thị lại danh sách
             showProductList();
         })
@@ -127,11 +121,45 @@ function deleteProduct(id) {
         })
 }
 
+
+
+function showProductDetail(id) {
+
+
+    console.log(id);
+
+    productSer.getProductItem(id)
+        .then(function(result) {
+            console.log(result.data);
+
+            //hiển thị lên form
+
+            document.querySelector("#TenSP").value = result.data.name;
+            document.querySelector("#GiaSP").value = result.data.price;
+            document.querySelector("#ManHinhSP").value = result.data.screen;
+            document.querySelector("#BackCamSP").value = result.data.backCamera;
+            document.querySelector("#FrontCamSP").value = result.data.frontCamera;
+            document.querySelector("#HinhSP").value = result.data.img;
+            document.querySelector("#MoTa").value = result.data.desc;
+            document.querySelector("#LoaiSP").value = result.data.type;
+
+            //thêm button update cho form
+            document.querySelector("#myModal .modal-footer").innerHTML = `
+            <button class="btn btn-success" onclick="updateProduct('${result.data.id}')" >Update Product</button>
+            `
+        })
+        .catch(function(error) {
+            console.log(error)
+        })
+
+
+}
+
 function updateProduct(id) {
 
     console.log(id);
     //Lấy dữ liệu từ form
-    var name = document.querySelector("#TenSP").value;
+    var name = document.getElementById("TenSP").value;
     var price = Number(document.querySelector("#GiaSP").value);
     var screen = document.querySelector("#ManHinhSP").value;
     var backCamera = document.querySelector("#BackCamSP").value;
@@ -176,39 +204,6 @@ function updateProduct(id) {
 
 }
 
-function showProductDetail(id) {
-
-
-    console.log(id);
-
-    productSer.getProductItem(id)
-        .then(function(result) {
-            console.log(result.data);
-
-            //hiển thị lên form
-
-            document.querySelector("#TenSP").value = result.data.name;
-            document.querySelector("#GiaSP").value = result.data.price;
-            document.querySelector("#ManHinhSP").value = result.data.screen;
-            document.querySelector("#BackCamSP").value = result.data.backCamera;
-            document.querySelector("#FrontCamSP").value = result.data.frontCamera;
-            document.querySelector("#HinhSP").value = result.data.img;
-            document.querySelector("#MoTa").value = result.data.desc;
-            document.querySelector("#LoaiSP").value = result.data.type;
-
-            //thêm button update cho form
-            document.querySelector("#myModal .modal-footer").innerHTML = `
-            <button class="btn btn-success" onclick="updateProduct('${result.data.id}')" >Update Product</button>
-            `
-        })
-        .catch(function(error) {
-            console.log(error)
-        })
-
-
-}
-
-
 
 
 
@@ -247,43 +242,34 @@ function searchProduct() {
 searchProduct();
 
 function sortUp() {
-    //hiển thị danh sach khi thành công. Ngược lại báo lỗi khi thất bại
 
     var axiosResult = productSer.getProductList();
 
     axiosResult.then(function(result) {
-            var products = result.data;
-            var sortSelect = document.getElementById("sapXep");
-
-            // Lắng nghe sự kiện click của button sắp xếp
-            sortSelect.onchange = function() {
-                // Lấy giá trị của option được chọn
-                let selectedValue = sortSelect.value;
-
-                // Nếu giá trị được chọn là 'price-asc'
-                if (selectedValue === "Tăng dần") {
-                    // Sắp xếp danh sách sản phẩm theo giá cả tăng dần
-                    products.sort(function(a, b) {
-                        return a.price - b.price;
-                    });
-
-                } else if (selectedValue === "Giảm dần") {
-                    // Sắp xếp danh sách sản phẩm theo giá cả tăng dần
-                    products.sort(function(a, b) {
-                        return b.price - a.price;
-                    });
-                }
-
-
-                // Hiển thị danh sách sản phẩm đã sắp xếp
-                showTable(products);
-            };
-
-        })
-        .catch(function(error) {
-            //? Reject (thất bại)
-            console.log(error)
+        var products = result.data;
+        var sortIcons = document.querySelectorAll('.sort-icon');
+      
+        sortIcons.forEach(function(icon) {
+          icon.addEventListener('click', function() {
+            var selectedValue = this.getAttribute('data-value');
+      
+            if (selectedValue === 'asc') {
+              products.sort(function(a, b) {
+                return a.price - b.price;
+              });
+            } else if (selectedValue === 'desc') {
+              products.sort(function(a, b) {
+                return b.price - a.price;
+              });
+            }
+      
+            showTable(products);
+          });
         });
-
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
 }
+
 sortUp();
