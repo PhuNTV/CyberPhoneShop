@@ -11,9 +11,6 @@ html, body {
   color: #0a0101;
 }
 
-#myNavbar {
-  background-color: #dc3545;
-}
 #myNavbar .navbar-brand {
   font-size: 18px;
   font-weight: 400;
@@ -21,8 +18,23 @@ html, body {
 }
 #myNavbar #navbarNav .nav-item .nav-link {
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 700;
   color: #0a0101;
+}
+#myNavbar .myCart i {
+  font-size: 30px;
+  margin-top: 10px;
+  margin-right: 24px;
+}
+#myNavbar .myCart span {
+  color: #757474;
+  font-weight: 700;
+  position: absolute;
+  right: 10px;
+  background-color: rgba(218, 215, 215, 0.418);
+  width: 20px;
+  text-align: center;
+  border-radius: 50%;
 }
 
 #myCarousel {

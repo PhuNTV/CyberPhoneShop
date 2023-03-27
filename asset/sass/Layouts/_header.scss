@@ -1,13 +1,29 @@
 #myNavbar{
-    background-color: #dc3545;
     .navbar-brand{
         @include styleText($font-size-1,$font-weigt-1,$color-black-0);
     }
     #navbarNav{
         .nav-item{
             .nav-link{
-                @include styleText($font-size-1,$font-weigt-1,$color-black-0);
+                @include styleText($font-size-1,$font-weigt-2,$color-black-0);
             }
+        }
+    }
+    .myCart{
+        i{
+            font-size: 30px;
+            margin-top: 10px;
+            margin-right: 24px;
+        }
+        span{
+            color: #757474;
+            font-weight: $font-weigt-2;
+            position: absolute;
+            right: 10px;
+            background-color: rgba(218, 215, 215, 0.418);
+            width: 20px;
+            text-align: center;
+            border-radius: 50%;
         }
     }
 }
