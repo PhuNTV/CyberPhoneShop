@@ -1,0 +1,25 @@
+@mixin style_a($color){
+    color: $color;
+    text-decoration: none;
+}
+
+@mixin styleText($color, $fs, $fw) {
+    color: $color;
+    font-size: $fs;
+    font-weight: $fw;
+}
+
+@mixin fontSW($fs, $fw) {
+    font-size: $fs;
+    font-weight: $fw;
+}
+
+@mixin fontCS($color, $fs) {
+    color: $color;
+    font-size: $fs;
+}
+
+@mixin fontCW($color, $fw) {
+    color: $color;
+    font-weight: $fw;
+}
