@@ -17,7 +17,7 @@
             crossorigin="anonymous">
 
         <!-- Custom Theme Style -->
-        <link href="./assets/css/admin.css" rel="stylesheet">
+        <link href="../../assets/css/admin.css" rel="stylesheet">
 
     </head>
 
@@ -53,14 +53,6 @@
                                                 Báo
                                                 cáo </a>
                                         </li>
-                                        <ul class="nav child_menu">
-                                            <li><a href="#">Thay đổi thông
-                                                    tin</a></li>
-                                            <li><a
-                                                    href="./customer/view/store.html">Website
-                                                    bán hàng</a></li>
-                                            <li><a href="./index.html">Thoát</a></li>
-                                        </ul>
                                     </li>
                                 </ul>
                             </div>
@@ -77,10 +69,8 @@
                             <ul class=" navbar-right">
                                 <li class="nav-item dropdown open"
                                     style="padding-left: 15px;">
-                                    <a href="javascript:;"
-                                        class="user-profile
-                                        dropdown-toggle"
-                                        aria-haspopup="true"
+                                    <a href="javascript:;" class="user-profile
+                                        dropdown-toggle" aria-haspopup="true"
                                         id="navbarDropdown"
                                         data-toggle="dropdown"
                                         aria-expanded="false">
@@ -98,7 +88,7 @@
                                         </a>
                                         <a class="dropdown-item" href="#">Help</a>
                                         <a class="dropdown-item"
-                                            href="/index.html"><i
+                                            href="../../index.html"><i
                                                 class="fa fa-sign-out
                                                 pull-right"></i>
                                             Log Out</a>
@@ -136,10 +126,9 @@
                         <div class="col-md-12">
                             <div class="x_panel">
                                 <div class="x_title">
-                                    <button type="button"
-                                        data-toggle="modal"
-                                        data-target="#myModal"
-                                        class="btn btn-sm btn-dark
+                                    <button type="button" data-toggle="modal"
+                                        data-target="#myModal" class="btn btn-sm
+                                        btn-dark
                                         waves-effect
                                         waves-light" id="btnThemSP">
                                         <i class="fa fa-plus-circle"></i>
@@ -166,12 +155,12 @@
                                                 <th>Màn Hình</th>
                                                 <th>Camera Sau</th>
                                                 <th>Camera Trước</th>
-                                                <th style="width: 15%">Hình
-                                                    Ảnh</th>
+                                                <th style="width: 15%">Hình Ảnh
+                                                </th>
                                                 <th style="width: 15%">Mô Tả</th>
                                                 <th>Loại</th>
-                                                <th style="width: 10%">Hành
-                                                    động</th>
+                                                <th style="width: 10%">Hành động
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody id="tblDanhSachSP">
@@ -210,8 +199,7 @@
                                             <input id="TenSP"
                                                 class="form-control"
                                                 placeholder="Nhập tên sản
-                                                phẩm"
-                                                />
+                                                phẩm" />
                                         </div>
                                         <span class="notifyPro" id="tbName"></span>
                                     </div>
@@ -221,46 +209,39 @@
                                                 class="form-control"
                                                 placeholder="Nhập giá" />
                                         </div>
-                                        <span class="notifyPro"
-                                            id="tbGia"></span>
-
+                                        <span class="notifyPro" id="tbGia"></span>
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
                                             <input id="ManHinhSP"
                                                 class="form-control"
-                                                placeholder="Nhập màn hình"
-                                                />
+                                                placeholder="Nhập màn hình" />
                                         </div>
-                                        <span class="notifyPro"
-                                            id="tbManHinh"></span>
+                                        <span class="notifyPro" id="tbManHinh"></span>
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
                                             <input id="BackCamSP"
                                                 class="form-control"
-                                                placeholder="Nhập số liệu
-                                                Camera sau" />
+                                                placeholder="Nhập số liệu Camera
+                                                sau" />
                                         </div>
-                                        <span class="notifyPro"
-                                            id="tbBackCam"></span>
+                                        <span class="notifyPro" id="tbBackCam"></span>
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
                                             <input id="FrontCamSP"
                                                 class="form-control"
-                                                placeholder="Nhập số liệu
-                                                Camera trước" />
+                                                placeholder="Nhập số liệu Camera
+                                                trước" />
                                         </div>
-                                        <span class="notifyPro"
-                                            id="tbFrontCam"></span>
+                                        <span class="notifyPro" id="tbFrontCam"></span>
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
                                             <input id="HinhSP"
                                                 class="form-control"
-                                                placeholder="Nhập hình sản
-                                                phẩm"
+                                                placeholder="Nhập hình sản phẩm"
                                                 />
                                         </div>
                                         <span class="notifyPro" id="tbHinh"></span>
@@ -269,10 +250,8 @@
                                         <div class="input-group">
                                             <textarea id="MoTa"
                                                 class="form-control" name=""
-                                                placeholder="Mô tả về sản
-                                                phẩm"
-                                                id="" cols="30"
-                                                rows="5"></textarea>
+                                                placeholder="Mô tả về sản phẩm"
+                                                id="" cols="30" rows="5"></textarea>
                                         </div>
                                         <span class="notifyPro" id="tbMoTa"></span>
                                     </div>
@@ -307,7 +286,6 @@
         <!-- Axios -->
         <script
             src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
-
         <script src="../models/Product.js"></script>
         <script src="../services/ProductService.js"></script>
         <script src="../controllers/Validation.js"></script>
