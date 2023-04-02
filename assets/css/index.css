@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: #73879C;
+  background-color: #73879c;
 }
 
 a,
@@ -15,7 +15,7 @@ a:focus {
 }
 
 body {
-  background-image: url(/assets/img/bgHome.png);
+  background-image: url(../../assets/img/bgHome.png);
   background-size: cover;
 }
 
@@ -51,6 +51,7 @@ h1 {
   padding-bottom: 0.25rem;
   position: relative;
 }
+
 .underline-hover-effect:before {
   content: "";
   position: absolute;
@@ -65,9 +66,11 @@ h1 {
 .pic:hover h1 {
   color: #f3ce5e;
 }
+
 .pic:hover .homeEffect {
   box-shadow: 0 5px 35px 0px rgba(0, 0, 0, 0.1);
 }
+
 .pic:hover .homeEffect:before,
 .pic:hover .homeEffect:after {
   display: block;
@@ -80,10 +83,12 @@ h1 {
   z-index: -1;
   animation: 1s clockwise infinite;
 }
+
 .pic:hover .homeEffect:after {
   background: #f3ce5e;
   animation: 2s counterclockwise infinite;
 }
+
 .pic:hover .underline-hover-effect:before {
   width: 100%;
 }
@@ -126,6 +131,7 @@ h1 {
     left: 0;
   }
 }
+
 @keyframes counterclockwise {
   0% {
     top: -5px;
