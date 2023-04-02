@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: #73879C;
+}
+
 a,
 a:hover,
 a:focus {
@@ -829,4 +833,4 @@ form {
   content: "↓";
   cursor: pointer;
   color: #73879C;
-}
+}/*# sourceMappingURL=admin.css.map */

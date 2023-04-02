@@ -1,0 +1,11 @@
+#myProducts{
+    .col-4:hover  .card-body .hover-none{
+        display: none ;
+    }
+    .col-4:hover .card-body .hover_information{
+        display: block;
+    }
+    .col-4 .card-body .hover_information{
+        display: none;
+    }
+}
